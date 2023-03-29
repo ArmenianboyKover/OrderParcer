@@ -1,11 +1,9 @@
-import java.math.BigDecimal
-
 /**
  * 425-00007280ISTVKOT280K2310MC1.29/NETWORK PRODUCTS
  */
 class OrderParser {
 
-    fun parse(orders: List<String>) {
+    fun parse(orders: List<String>) : List<Order> {
 
         val parsedResult = mutableMapOf<String, Order>()
 
@@ -54,8 +52,8 @@ class OrderParser {
                 )
             }
         }
-        parsedResult.forEach { (key, value) ->
-            println(value)
+        return parsedResult.map {(_, value) ->
+            value
         }
     }
 
