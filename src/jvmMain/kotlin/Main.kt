@@ -1,9 +1,7 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 
@@ -11,13 +9,14 @@ import androidx.compose.ui.window.application
 @Preview
 fun app() {
 
-    var remember by remember { mutableStateOf("") }
+    var userInput by remember { mutableStateOf("") }
+    val orderParser = remember{ OrderParser() }
 
     TextField(
-        value = remember,
+        value = userInput,
         onValueChange = {
             val a = it
-            remember = it
+            userInput = it
         },
         label = { Text("TEXT") }
     )
