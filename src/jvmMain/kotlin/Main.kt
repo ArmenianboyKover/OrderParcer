@@ -27,7 +27,10 @@ fun app() {
 
         //Parse button
         Button(onClick = {
-            result = orderParser.parse(orders = userInput.split("\n")).toString()
+            val parserResult = orderParser.parse(orders = userInput.split("\n"))
+            result = parserResult.map {
+                "${it.orderNumber}${it.firstAirport}${it.secondAirport}T${it.pieces}K${it.weight}MC${it.volume}/${it.products}"
+            }.joinToString(separator = "\n")
         }) {
             Text(text = "Parse")
         }
