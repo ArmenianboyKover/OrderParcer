@@ -10,7 +10,7 @@ import androidx.compose.ui.window.application
 fun app() {
 
     var userInput by remember { mutableStateOf("") }
-    val orderParser = remember{ OrderParser() }
+    val orderParser = remember { OrderParser() }
 
     TextField(
         value = userInput,
