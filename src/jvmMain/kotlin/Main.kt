@@ -1,9 +1,13 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 
@@ -14,39 +18,53 @@ fun app() {
     var userInput by remember { mutableStateOf("") }
     var result by remember { mutableStateOf("") }
     val orderParser = remember { OrderParser() }
+    var isInvalidInput by remember { mutableStateOf(false) }
 
-    Column {
+    Column(
+        modifier = Modifier.verticalScroll(rememberScrollState())
+    ) {
         TextField(
+            modifier = Modifier.fillMaxWidth(),
             value = userInput,
             onValueChange = {
-                val a = it
                 userInput = it
             },
-            label = { Text("Входные данные") }
+            label = { Text("Входные данные") },
+            isError = isInvalidInput,
         )
 
-        //Parse button
-        Button(onClick = {
-            val parserResult = orderParser.parse(orders = userInput.split("\n"))
-            result = parserResult.map {
-                "${it.orderNumber}${it.firstAirport}${it.secondAirport}T${it.pieces}K${it.weight}MC${it.volume}/${it.products}"
-            }.joinToString(separator = "\n")
-        }) {
-            Text(text = "Parse")
-        }
+        Row {
+            //Parse button
+            Button(onClick = {
+                orderParser.parse(orders = userInput)
+                    .onSuccess {
+                        result = it
+                        isInvalidInput = false
+                    }.onFailure {
+                        isInvalidInput = true
+                        result = "Powel nahui"
+                    }
+            }) {
+                Text(text = "Parse")
+            }
 
-        //Delete button
-        Button(onClick = {
-            result = ""
-            userInput = ""
-        }) {
-            Text(text = "Delete")
+            Spacer(modifier = Modifier.width(16.dp))
+
+            //Delete button
+            Button(onClick = {
+                result = ""
+                userInput = ""
+            }) {
+                Text(text = "Delete")
+            }
         }
 
         TextField(
+            modifier = Modifier.fillMaxWidth(),
             value = result,
             onValueChange = {},
-            readOnly = true
+            readOnly = true,
+            isError = isInvalidInput,
         )
     }
 }
