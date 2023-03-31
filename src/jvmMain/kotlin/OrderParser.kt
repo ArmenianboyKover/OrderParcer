@@ -41,6 +41,7 @@ class OrderParser {
                         pieces = order.pieces + pieces.toInt(),
                         weight = order.weight + weight.toBigDecimal(),
                         volume = order.volume + volume.toBigDecimal(),
+                        ordersAmount = order.ordersAmount.inc()
                     )
 
                     parsedResult[orderNumber] = updatedOrder
@@ -54,6 +55,7 @@ class OrderParser {
                         weight = weight.toBigDecimal(),
                         volume = volume.toBigDecimal(),
                         products = products,
+                        ordersAmount = 1,
                     )
                 }
             }
