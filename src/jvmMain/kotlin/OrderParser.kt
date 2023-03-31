@@ -1,7 +1,6 @@
 /**
  * 425-00007280ISTVKOT280K2310MC1.29/NETWORK PRODUCTS
  * 770-77054250AYTSVO/T8K670MC0.7T/PARTSFORMACHINERY
- * 770-77054471AYTSVO/T1K7MC0.08/ELECTRONICSCOMPONENTS
  */
 class OrderParser {
 
@@ -41,7 +40,7 @@ class OrderParser {
                         pieces = order.pieces + pieces.toInt(),
                         weight = order.weight + weight.toBigDecimal(),
                         volume = order.volume + volume.toBigDecimal(),
-                        ordersAmount = order.ordersAmount.inc()
+//                        ordersAmount = order.ordersAmount.inc()
                     )
 
                     parsedResult[orderNumber] = updatedOrder
@@ -55,12 +54,12 @@ class OrderParser {
                         weight = weight.toBigDecimal(),
                         volume = volume.toBigDecimal(),
                         products = products,
-                        ordersAmount = 1,
+//                        ordersAmount = 1,
                     )
                 }
             }
             parsedResult.map { (_, order) ->
-                "${order.orderNumber}${order.firstAirport}${order.secondAirport}T${order.pieces}K${order.weight}MC${order.volume}/${order.products}"
+                "${order.orderNumber}${order.firstAirport}${order.secondAirport}/T${order.pieces}K${order.weight}MC${order.volume}/${order.products}"
             }.joinToString(separator = "\n")
         }
     }

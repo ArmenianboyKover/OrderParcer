@@ -29,7 +29,7 @@ fun app() {
             onValueChange = {
                 userInput = it
             },
-            label = { Text("Входные данные") },
+            label = { Text("Data input ") },
             isError = isInvalidInput,
         )
 
@@ -42,7 +42,7 @@ fun app() {
                         isInvalidInput = false
                     }.onFailure {
                         isInvalidInput = true
-                        result = "Powel nahui"
+                        result = "Invalid input"
                     }
             }) {
                 Text(text = "Parse")
