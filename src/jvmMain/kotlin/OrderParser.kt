@@ -25,7 +25,7 @@ class OrderParser {
 
                 val pieces = data.substringBefore("K").drop(piecesPrefixLength)
 
-                data = data.drop(pieces.length).drop(1)
+                data = data.drop(pieces.length).drop(piecesPrefixLength)
 
                 val weight = data.substringBefore("M").drop(1)
                 data = data.drop(weight.length).drop(1)
