@@ -1,10 +1,9 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -20,11 +19,15 @@ fun app() {
     val orderParser = remember { OrderParser() }
     var isInvalidInput by remember { mutableStateOf(false) }
 
+    MaterialTheme(colors = darkColors()) {
+        Box(Modifier.fillMaxSize().background(MaterialTheme.colors.background))
+    }
+
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
         TextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.background),
             value = userInput,
             onValueChange = {
                 userInput = it
@@ -37,8 +40,8 @@ fun app() {
             //Parse button
             Button(onClick = {
                 orderParser.parse(orders = userInput)
-                    .onSuccess {
-                        result = it
+                    .onSuccess { parsedResult ->
+                        result = parsedResult.parsedString
                         isInvalidInput = false
                     }.onFailure {
                         isInvalidInput = true
@@ -60,7 +63,7 @@ fun app() {
         }
 
         TextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.background),
             value = result,
             onValueChange = {},
             readOnly = true,

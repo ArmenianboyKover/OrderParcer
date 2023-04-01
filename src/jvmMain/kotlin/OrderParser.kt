@@ -4,7 +4,7 @@
  */
 class OrderParser {
 
-    fun parse(orders: String): Result<String> {
+    fun parse(orders: String): Result<ParserResult> {
         return runCatching {
 
             val parsedResult = mutableMapOf<String, Order>()
@@ -40,7 +40,6 @@ class OrderParser {
                         pieces = order.pieces + pieces.toInt(),
                         weight = order.weight + weight.toBigDecimal(),
                         volume = order.volume + volume.toBigDecimal(),
-//                        ordersAmount = order.ordersAmount.inc()
                     )
 
                     parsedResult[orderNumber] = updatedOrder
@@ -54,13 +53,18 @@ class OrderParser {
                         weight = weight.toBigDecimal(),
                         volume = volume.toBigDecimal(),
                         products = products,
-//                        ordersAmount = 1,
                     )
                 }
             }
-            parsedResult.map { (_, order) ->
-                "${order.orderNumber}${order.firstAirport}${order.secondAirport}/T${order.pieces}K${order.weight}MC${order.volume}/${order.products}"
+
+            val parsedString = parsedResult.map { (_, order) ->
+                "${order.orderNumber}${order.firstAirport}${order.secondAirport}/T${order.pieces}K${order.weight}MC${order.volume}/${order.products} ${parsedResult.size}"
             }.joinToString(separator = "\n")
+
+            ParserResult(
+                uniqueOrdersAmount = parsedResult.size,
+                parsedString = parsedString
+            )
         }
     }
 

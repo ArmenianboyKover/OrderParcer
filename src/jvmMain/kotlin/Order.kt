@@ -8,5 +8,4 @@ data class Order(
     val weight: BigDecimal,
     val volume: BigDecimal,
     val products: String,
-//    val ordersAmount: Int,
 )
