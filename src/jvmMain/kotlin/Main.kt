@@ -89,7 +89,7 @@ fun app() {
             Button(onClick = {
                 clipboardManager.setText(AnnotatedString(result))
             }) {
-                Text("Copy")
+                Text("Copy result")
             }
         }
     }
