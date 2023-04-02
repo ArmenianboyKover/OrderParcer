@@ -36,6 +36,14 @@ fun app() {
             isError = isInvalidInput,
         )
 
+        TextField(
+            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.background),
+            value = result,
+            onValueChange = {},
+            readOnly = true,
+            isError = isInvalidInput,
+        )
+
         Row {
             //Parse button
             Button(onClick = {
@@ -61,14 +69,6 @@ fun app() {
                 Text(text = "Delete")
             }
         }
-
-        TextField(
-            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.background),
-            value = result,
-            onValueChange = {},
-            readOnly = true,
-            isError = isInvalidInput,
-        )
     }
 }
 

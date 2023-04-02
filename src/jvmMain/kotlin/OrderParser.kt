@@ -58,12 +58,12 @@ class OrderParser {
             }
 
             val parsedString = parsedResult.map { (_, order) ->
-                "${order.orderNumber}${order.firstAirport}${order.secondAirport}/T${order.pieces}K${order.weight}MC${order.volume}/${order.products} ${parsedResult.size}"
+                "${order.orderNumber}${order.firstAirport}${order.secondAirport}/T${order.pieces}K${order.weight}MC${order.volume}/${order.products}"
             }.joinToString(separator = "\n")
 
             ParserResult(
                 uniqueOrdersAmount = parsedResult.size,
-                parsedString = parsedString
+                parsedString = parsedString,
             )
         }
     }
