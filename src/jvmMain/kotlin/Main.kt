@@ -6,6 +6,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
@@ -19,6 +21,7 @@ fun app() {
     val orderParser = remember { OrderParser() }
     var isInvalidInput by remember { mutableStateOf(false) }
     var uniqueOrder by remember { mutableStateOf("") }
+    val clipboardManager: androidx.compose.ui.platform.ClipboardManager = LocalClipboardManager.current
 
     MaterialTheme(colors = darkColors()) {
         Box(Modifier.fillMaxSize().background(MaterialTheme.colors.background))
@@ -79,6 +82,14 @@ fun app() {
                 uniqueOrder = ""
             }) {
                 Text(text = "Delete")
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Button(onClick = {
+                clipboardManager.setText(AnnotatedString(result))
+            }) {
+                Text("Copy")
             }
         }
     }
