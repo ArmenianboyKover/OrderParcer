@@ -18,11 +18,11 @@ fun app() {
     var result by remember { mutableStateOf("") }
     val orderParser = remember { OrderParser() }
     var isInvalidInput by remember { mutableStateOf(false) }
+    var uniqueOrder by remember { mutableStateOf("") }
 
     MaterialTheme(colors = darkColors()) {
         Box(Modifier.fillMaxSize().background(MaterialTheme.colors.background))
     }
-
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
@@ -42,6 +42,16 @@ fun app() {
             onValueChange = {},
             readOnly = true,
             isError = isInvalidInput,
+            label = { Text("Result") }
+        )
+
+        TextField(
+            modifier = Modifier.fillMaxWidth().background(MaterialTheme.colors.background),
+            value = uniqueOrder,
+            onValueChange = {
+                uniqueOrder = it
+            },
+            label = { Text("Unique orders") }
         )
 
         Row {
@@ -51,6 +61,7 @@ fun app() {
                     .onSuccess { parsedResult ->
                         result = parsedResult.parsedString
                         isInvalidInput = false
+                        uniqueOrder = parsedResult.uniqueOrdersAmount
                     }.onFailure {
                         isInvalidInput = true
                         result = "Invalid input"
@@ -65,6 +76,7 @@ fun app() {
             Button(onClick = {
                 result = ""
                 userInput = ""
+                uniqueOrder = ""
             }) {
                 Text(text = "Delete")
             }

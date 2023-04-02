@@ -62,7 +62,7 @@ class OrderParser {
             }.joinToString(separator = "\n")
 
             ParserResult(
-                uniqueOrdersAmount = parsedResult.size,
+                uniqueOrdersAmount = "Total AWBs: ${parsedResult.size}",
                 parsedString = parsedString,
             )
         }

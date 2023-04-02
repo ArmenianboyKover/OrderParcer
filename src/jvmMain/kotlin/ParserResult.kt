@@ -1,4 +1,4 @@
 data class ParserResult(
-    val uniqueOrdersAmount: Int,
+    val uniqueOrdersAmount: String,
     val parsedString: String,
 )
