@@ -21,7 +21,7 @@ fun app() {
     val orderParser = remember { OrderParser() }
     var isInvalidInput by remember { mutableStateOf(false) }
     var uniqueOrder by remember { mutableStateOf("") }
-    val clipboardManager: androidx.compose.ui.platform.ClipboardManager = LocalClipboardManager.current
+    val clipboardManager = LocalClipboardManager.current
 
     MaterialTheme(colors = darkColors()) {
         Box(Modifier.fillMaxSize().background(MaterialTheme.colors.background))
